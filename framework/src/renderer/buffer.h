@@ -86,7 +86,7 @@ namespace glb
     class index_buffer
 	{
 		public:
-            index_buffer(uint32_t* p_indices);
+            index_buffer(uint32_t* p_indices, uint32_t p_count);
 			~index_buffer();
 
 			uint32_t get_count() const { return m_count; }

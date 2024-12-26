@@ -41,9 +41,9 @@ namespace glb
         glBufferSubData(GL_ARRAY_BUFFER, p_offset, p_size, p_data);
     }
 
-    index_buffer::index_buffer(uint32_t *p_indices)
+    index_buffer::index_buffer(uint32_t *p_indices, uint32_t p_count)
     {
-        m_count = sizeof(p_indices) / sizeof(uint32_t);
+        m_count = p_count;
         glCreateBuffers(1, &m_id);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_count * sizeof(uint32_t), p_indices, GL_STATIC_DRAW);

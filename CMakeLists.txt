@@ -31,6 +31,7 @@ set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/build)
 
 # globally add GLB_DEBUG for the debug build
 add_compile_definitions($<$<CONFIG:DEBUG>:GLB_DEBUG>)
+add_compile_definitions(GLB_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
 
 # globally set -fno-strict-aliasing, needed due to using reinterpret_cast
 if (NOT MSVC)

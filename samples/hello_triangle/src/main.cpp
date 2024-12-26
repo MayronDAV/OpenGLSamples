@@ -16,9 +16,8 @@ class hello_triangle : public glb::application
 
 		~hello_triangle() override
 		{
-			delete m_shader;
-			glDeleteVertexArrays(1, &m_vao);
-   	 		glDeleteBuffers(1, &m_vbo);
+			glb::utils::destroy(m_shader);
+			glb::utils::destroy(m_vao);
 		}
 
 		void on_init() override
@@ -60,20 +59,15 @@ class hello_triangle : public glb::application
 				 0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f   // top 
 			};
 
-			glGenVertexArrays(1, &m_vao);
-			glGenBuffers(1, &m_vbo);
-			
-			glBindVertexArray(m_vao);
+			m_vao = new glb::vertex_array();
 
-			glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+			auto vbo = new glb::vertex_buffer(vertices, sizeof(vertices));
+			vbo->set_layout({
+				{ glb::data_type::float3, "aPos"   },
+				{ glb::data_type::float3, "aColor" }
+			});
 
-			// position attribute
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-			glEnableVertexAttribArray(0);
-			// color attribute
-			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-			glEnableVertexAttribArray(1);
+			m_vao->set_vertex_buffer(vbo);
 		}
 
 		void on_update(float p_dt) override
@@ -90,16 +84,13 @@ class hello_triangle : public glb::application
 
 			m_shader->bind();
 
-			glBindVertexArray(m_vao);
+			m_vao->bind();
 			glDrawArrays(GL_TRIANGLES, 0, 3);
-
-			m_shader->unbind();
 		}
 
 	private:
 		glb::shader* m_shader 	= nullptr;
-		uint32_t m_vao 			= NULL;
-		uint32_t m_vbo 			= NULL;
+		glb::vertex_array* m_vao = nullptr;
 };
 
 

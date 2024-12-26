@@ -18,17 +18,16 @@ project(opengl_samples)
 
 
 if (${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
-message(FATAL_ERROR "Compilation inside source folder not allowed. Use a build folder.")
+	message(FATAL_ERROR "Compilation inside source folder not allowed. Use a build folder.")
 endif()
 
-set(CMAKE_CXX_STANDARD 			17) # do nothing on msvc
+set(CMAKE_CXX_STANDARD 			17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS        ON)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/build)
-
 
 # globally add GLB_DEBUG for the debug build
 add_compile_definitions($<$<CONFIG:DEBUG>:GLB_DEBUG>)

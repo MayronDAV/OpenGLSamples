@@ -1,5 +1,7 @@
 #pragma once
 
+#include "core/definitions.h"
+
 // std
 #include <string>
 #include <cstdint>
@@ -12,12 +14,6 @@
 
 namespace glb
 {
-    enum class shader_type
-    {
-        vertex = 0,
-        fragment
-    };
-
     class shader
     {
         public:

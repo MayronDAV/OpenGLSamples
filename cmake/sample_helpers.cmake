@@ -11,6 +11,17 @@ function(add_project target)
 
 	set_target_properties(${PROJECT_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
+	set_target_properties(${target} PROPERTIES
+		RUNTIME_OUTPUT_DIRECTORY ${BIN_DIR}/$<CONFIG>/${target}
+	)
+
+	if(MSVC OR APPLE)
+		set_target_properties(${target} PROPERTIES
+			RUNTIME_OUTPUT_DIRECTORY_DEBUG  	${BIN_DIR}/$<CONFIG>/${target}
+			RUNTIME_OUTPUT_DIRECTORY_RELEASE  	${BIN_DIR}/$<CONFIG>/${target}
+		)
+	endif()
+
 	target_include_directories(
 		${PROJECT_NAME} 
 		PUBLIC 

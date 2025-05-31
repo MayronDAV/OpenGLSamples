@@ -2,6 +2,8 @@
 #include "glb.h"
 
 // lib
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
 
@@ -98,6 +100,9 @@ class hello_textures : public glb::application
 		void on_update(float p_dt) override
 		{
 			auto window = get_window();
+			
+			if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+				glfwSetWindowShouldClose(window, true);
 
 			int width, height;
 			glfwGetFramebufferSize(window, &width, &height);
